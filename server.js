@@ -38,9 +38,14 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/payment', paymentRoutes);
 
 // 健康检查
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', message: '服务运行正常' });
-});
+app.get('/api/health', (req, res) => {
+     res.json({ 
+       status: 'ok', 
+       message: '服务运行正常',
+       timestamp: new Date().toISOString(),
+       environment: process.env.NODE_ENV || 'development'
+     });
+   });
 
 // 错误处理中间件
 app.use((err, req, res, next) => {
@@ -71,4 +76,5 @@ app.listen(PORT, () => {
 });
 
 module.exports = app;
+
 
